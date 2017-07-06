@@ -72,7 +72,7 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if(valid){ //验证通过
                     api.userRegister(this.regForm)
-                        .then(({ data }) => {
+                        .then(({ data }) => { 
                             if(data.success){
                                 this.$message({
                                     type: 'success',
@@ -86,7 +86,6 @@ export default {
                             }
                         });
                 }else{ //验证不通过
-                    console.log('error submit');
                     return false;
                 }
             });

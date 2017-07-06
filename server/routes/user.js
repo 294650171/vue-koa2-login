@@ -3,12 +3,13 @@ const Router = require('koa-router');
 
 const childRouter = new Router();
 
+//checkToken作为中间件存在
 const checkToken = require('../token/checkToken.js');
 
 childRouter.post('/login', UserController.Login);
 childRouter.post('/register', UserController.Reg);
 
-//这个路由，表示要先检查权限
+//需要先检查权限的路由
 childRouter.get('/user', checkToken, UserController.GetAllUsers);
 childRouter.post('/delUser', checkToken, UserController.DelUser);
 

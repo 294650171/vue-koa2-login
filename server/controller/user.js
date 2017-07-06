@@ -6,6 +6,8 @@ const objectIdToTimestamp = require('objectid-to-timestamp');
 const sha1 = require('sha1');
 //createToken
 const createToken = require('../token/createToken.js');
+
+//数据库的操作
 //根据用户名查找用户
 const findUser = (username) => {
     return new Promise((resolve, reject) => {
@@ -40,10 +42,13 @@ const delUser = function(id){
         });
     });
 };
+
 //登录
 const Login = async ( ctx ) => {
+    //拿到账号和密码
     let username = ctx.request.body.username;
     let password = sha1(ctx.request.body.password);
+    
     let doc = await findUser(username);
     if(!doc){
         console.log('检查到用户名不存在');

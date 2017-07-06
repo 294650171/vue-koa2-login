@@ -2,6 +2,7 @@
 
 ## 前言：
 需要耐心，需要耐心，我在代码写了很多注释，你需要的是耐心阅读。能学到前后端很多东西。
+项目总你发现有些东西其实是绕了远路的，但并不妨碍学习反而能学到更多的知识点。
 
 ## 技术栈：
 * vue 2.X
@@ -14,7 +15,7 @@
 * jsonwebtoken
 
 ## 功能：
-用户输入网站进入localhost:8000/,由于没有登录直接跳转到/login页面，登录完成后自动跳转到主页并能进行其他操作。（没有登录没办法完成这些操作）
+用户输入网站进入localhost:8000/,由于没有登录直接跳转到/login页面，登录完成后自动跳转到主页并能进行其他操作。
 
 ## 运行环境：
 由于用的是koa2,所以请在官网下载最新版本,我用的是**7.8.0**版本。建议下载个nvm，它是window下管理node版本的工具，非常好用，只需几个命令就能随时切换node版本</br>
@@ -34,10 +35,12 @@ proxyTable: {
 //第一步
 cd vue-koa2-login
 //第二步
-npm run dev
-//第三步:挂起mongodb
-mongod --dbpath XXXX(可以随便建个文件夹，这里是该文件夹的地址，将来用来存放数据)
+cnpm install
 //第三步
+npm run dev
+//第四步:挂起mongodb
+mongod --dbpath XXXX(可以随便建个文件夹，这里是该文件夹的地址，将来用来存放数据)
+//第五步
 node server.js
 ```
 
@@ -111,16 +114,14 @@ store,localStorage,sessionStorage三者皆可，看需求
 ## 分享阅读的资料及源码：
 资料:</br>
 [学习koa2](https://github.com/chenshenhai/koa2-note)</br>
-[学习JSON Web Token](http://www.cocoachina.com/webapp/20151020/13824.html)</br>
-[学习JSON Web Token](http://blog.leapoahead.com/2015/09/06/understanding-jwt/)</br>
-[学习JSON Web Token](http://www.tuicool.com/articles/uuAzAbU)
+[学习JSON Web Token1](http://www.cocoachina.com/webapp/20151020/13824.html)</br>
+[学习JSON Web Token2](http://blog.leapoahead.com/2015/09/06/understanding-jwt/)</br>
+[学习JSON Web Token3](http://www.tuicool.com/articles/uuAzAbU)
 
-源码：</br>
+学习的源码：</br>
 [一个项目学会前端实现登录拦截](https://github.com/superman66/vue-axios-github)</br>
 [vue-login](https://github.com/ykloveyxk/vue-login)</br>
-我是结合看这上面两个项目。
-
-我的github地址:https://github.com/sinner77
+[vue-koa2-blog](https://github.com/sinner77/vue-koa2-blog)
 
 
 

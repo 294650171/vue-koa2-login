@@ -15,7 +15,7 @@ module.exports = async ( ctx, next ) => {
         //     accept: 'application/json, text/plain, */*',
         //     connection: 'close',
         //     host: 'localhost:8888' } }
-
+    
     if(ctx.request.header['authorization']){
         let token = ctx.request.header['authorization'].split(' ')[1];
         //解码token
@@ -36,4 +36,24 @@ module.exports = async ( ctx, next ) => {
             message: '没有token'
         }
     }
+    //看到这里请继续读完下面的代码
 };
+
+// 上面的 jwt.decode(token, 'sinner77') 只是把信息解密出来，然后再验证是否还在有效期以内
+// 但是这个sinner77的参数是无效的，直接使用jwt.decode(token)或者jwt.decode(token, 'xxxx')
+// 解密出来的信息都是一致的，相当于没有对这个token进行是否合法的验证，达不到登录基本的安全性
+
+// module.exports = async ( ctx, next ) => {
+//     const authorization = ctx.get('Authorization');
+//     if (authorization === '') {
+//         ctx.throw(401, 'no token detected in http header 'Authorization'');
+//     }
+//     const token = authorization.split(' ')[1];
+//     let tokenContent;
+//     try {
+//         tokenContent = await jwt.verify(token, 'sinner77');     //如果token过期，将抛出错误，很方便
+//     } catch (err) {
+//         ctx.throw(401, 'invalid token');
+//     }
+//     await next();
+// }

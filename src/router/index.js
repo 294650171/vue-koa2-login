@@ -64,14 +64,16 @@ router.beforeEach((to, from, next) => {
   let token = store.state.token;
   //判断要去的路由有没有requiresAuth
   if(to.meta.requiresAuth){
+
     if(token){
       next();
     }else{
       next({
         path: '/login',
-        query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
+        query: { redirect: to.fullPath }  // 将刚刚要去的路由path（却无权限）作为参数，方便登录成功后直接跳转到该路由
       });
     }
+
   }else{
     next();//如果无需token,那么随它去吧
   }

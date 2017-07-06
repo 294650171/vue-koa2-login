@@ -2,7 +2,8 @@
     <div>
         <el-row>
             <el-col :span="10" :offset="7">
-                <el-tabs v-model="activeName" @tab-click="handleClick">
+            <!-- el-tabs放在这里其实不合理，可以提到App.vue里面。然后引入Login组件和Register组件 -->
+                <el-tabs v-model="activeName">
 
                     <el-tab-pane label="登录" name="login">
                         <el-form :model="loginForm" :rules="rules" label-width="100px" ref="loginForm">
@@ -30,9 +31,10 @@
 </template>
 
 <script>
+import api from '../axios.js'
 //引入验证组件
 import Register from './Register.vue'
-import api from '../axios.js'
+
 
 export default {
     data(){
@@ -54,9 +56,6 @@ export default {
         }
     },
     methods: {
-        handleClick(tab, event){
-            // console.log(tab, event);
-        },
         resetForm(formName){
             this.$refs[formName].resetFields();
         },
@@ -65,8 +64,8 @@ export default {
                 if(valid){ //验证通过
                     let opt = this.loginForm;
                     api.userLogin(opt)
-                        .then(({ data }) => {
-                            console.log('登录传来的json:' + JSON.stringify(data));
+                        .then(({ data }) => {     //解构赋值拿到data
+                            //账号不存在
                             if(data.info === false){
                                 this.$message({
                                     type: 'info',
@@ -74,33 +73,31 @@ export default {
                                 });
                                 return ;
                             }
+                            //账号存在
                             if(data.success){
                                 this.$message({
                                     type: 'success',
                                     message: '登录成功'
                                 })
-                                let create_time = data.create_time;
                                 let token = data.token;
                                 let username = data.username;
-                                console.log(token);
-                                console.log(username);
                                 this.$store.dispatch('UserLogin', token);
                                 this.$store.dispatch('UserName', username);
                                 //如果用户手动输入"/"那么会跳转到这里来，即this.$route.query.redirect有参数
                                 let redirectUrl = decodeURIComponent(this.$route.query.redirect || '/');
-                                console.log(redirectUrl);
+                                //跳转到指定的路由
                                 this.$router.push({
                                     path: redirectUrl
                                 });
                             }else{
                                 this.$message({
                                     type: 'info',
-                                    message: '密码错误'
+                                    message: '密码错误！'
                                 });
                             }
                         });
-                }else{ //验证不通过
-                    console.log('error submit');
+                }else{ 
+                    //验证不通过
                     return false;
                 }
             });
